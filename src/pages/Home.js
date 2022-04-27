@@ -32,6 +32,12 @@ function Home() {
   const [email, setemail] = useState('')
   const [Top, setTop] = useState([])
   //===============================================
+  const [Name, setName] = useState('')
+  const [EmailNhan, setEmailNhan] = useState('')
+  const [PhoneNumber, setPhoneNumber] = useState('')
+  const [Title, setTitle] = useState('')
+  const [ContentEmail, setContentEmail] = useState('')
+  //===============================================
   //Infor
   useEffect(() => {
     var requestOptions = {
@@ -199,6 +205,42 @@ function Home() {
       navigate('/details-nof/' + data._id)
     }
   }
+
+  //ClickSendEmail
+  const sendEmail = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("Name", Name);
+    urlencoded.append("emailNhan", EmailNhan);
+    urlencoded.append("PhoneNumber", PhoneNumber);
+    urlencoded.append("Title", Title);
+    urlencoded.append("Content", ContentEmail);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    fetch(apiUrl + "/send-email", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          alert(result.message)
+          setName('')
+          setEmailNhan('')
+          setPhoneNumber('')
+          setTitle('')
+          setContentEmail('')
+        } else {
+          alert(result.message)
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
   //============================
   //HTML
   let body
@@ -318,23 +360,26 @@ function Home() {
                   <div>
                     <label>Họ Và Tên</label>
                   </div>
-                  <input></input>
+                  <input type='text' onChange={e => setName(e.target.value)} value={Name}></input>
                   <div>
                     <label>Email để nhận tư vấn (*)</label>
                   </div>
-                  <input></input>
+                  <input type='email' onChange={e => setEmailNhan(e.target.value)} value={EmailNhan}></input>
                   <div>
                     <label>Số điện thoại (*)</label>
                   </div>
-                  <input></input>
+                  <input type='text' onChange={e => setPhoneNumber(e.target.value)} value={PhoneNumber}></input>
                   <div>
                     <label>Tiêu đề câu hỏi</label>
                   </div>
-                  <input></input>
+                  <input type='text' onChange={e => setTitle(e.target.value)} value={Title}></input>
                   <div>
                     <label>Nội dung tư vấn</label>
                   </div>
-                  <textarea></textarea>
+                  <textarea className='Home-body-3-font-textarea' onChange={e => setContentEmail(e.target.value)} value={ContentEmail}></textarea>
+                  <div>
+                    <button className='Home-body-3-btn' onClick={sendEmail}>Xác Nhận</button>
+                  </div>
                 </div>
               </div>
             </div>
