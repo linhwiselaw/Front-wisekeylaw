@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import '../../css/page-add.css'
-
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { apiUrl } from '../../contexts/constants';
 
-function AddQue() {
+function EditEmail() {
   let navigate = useNavigate();
   const [Loading, setLoading] = useState(false)
   //=======================
   const [value, setvalue] = useState('')
-  const [Title, setTitle] = useState('')
+  const [Icon, setIcon] = useState('')
   //=======================
   useEffect(() => {
     const checklogin = () => {
@@ -48,29 +47,51 @@ function AddQue() {
     }
     checklogin()
   }, [navigate])
+  //=======================
+  useEffect(() => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    const id = window.location.href.split('/')
+    fetch(apiUrl + "/email/" + id[4], requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          setIcon(result.data.Icon)
+          setvalue(result.data.Content)
+        }
+      })
+      .catch(error => console.log('error', error));
+  }, [])
 
   const Add = () => {
-    //đoc cookie
-    const cookieValue = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('accessToken='))
-      .split('=')[1];
+
+    let a
+    if (Icon.indexOf('https://') > -1) {
+      //là địa chỉ web
+      a = Icon.split('/')[5]
+    } else {
+      a = Icon
+    }
+
     var myHeaders = new Headers();
-    myHeaders.append("token", cookieValue);
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("Title", Title);
+    urlencoded.append("Icon", a);
     urlencoded.append("Content", value);
 
     var requestOptions = {
-      method: 'POST',
+      method: 'PUT',
       headers: myHeaders,
       body: urlencoded,
       redirect: 'follow'
     };
 
-    fetch(apiUrl + "/question", requestOptions)
+    const id = window.location.href.split('/')
+    fetch(apiUrl + "/email/" + id[4], requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.success) {
@@ -83,27 +104,30 @@ function AddQue() {
       .catch(error => console.log('error', error));
   }
 
+  //=======================
   //HTML
   let Body
   if (Loading) {
     Body = (
       <>
-        <h4 className='add-page-title'>Thêm Câu Trả Lời</h4>
+        <h4 className='add-page-title'>Edit Email</h4>
         <div className='add-page'>
-          <label>Tiêu Đề(Tối Đa 150 chữ)</label>
+          <label>Hình ảnh</label>
           <div className='add-page-input'>
-            <input type='text' onChange={e => setTitle(e.target.value)} maxLength='150' size='200'></input>
+            <input type='text' onChange={e => setIcon(e.target.value)} value={Icon} size='200'></input>
           </div>
+          <label>Nội Dung</label>
           <div className='Text-big'>
             <CKEditor
               editor={ClassicEditor}
+              data={value}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setvalue(data)
               }}
             />
           </div>
-          <button onClick={Add} className='btn-add-page'>Xác Nhận</button>
+          <button className='btn-add-page' onClick={Add}>Xác Nhận</button>
         </div>
       </>
     )
@@ -113,7 +137,9 @@ function AddQue() {
     )
   }
 
-  return (Body)
+  return (
+    Body
+  )
 }
 
-export default AddQue
+export default EditEmail

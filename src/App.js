@@ -24,6 +24,13 @@ import EditQue from './pages/Que/EditQue'
 import EditService from './pages/Service/EditService'
 import EditTop from './pages/Top/EditTop'
 import EditInfor from './pages/EditInfor'
+import ViewEmail from './pages/Email/ViewEmail';
+import EditEmail from './pages/Email/EditEmail';
+
+import ServiceDetails from './pages/ServiceDetails'
+import AboutDetails from './pages/AboutDetails'
+import NofDetails from './pages/NofDetails'
+import BlogDetails from './pages/BlogDetails'
 
 function App() {
   return (
@@ -39,6 +46,7 @@ function App() {
         <Route path="/view-que" element={<ViewQue />}/>
         <Route path="/view-service" element={<ViewService />}/>
         <Route path="/view-top" element={<ViewTop />}/>
+        <Route path="/view-email" element={<ViewEmail />}/>
 
         <Route path="/add-about" element={<AddAbout />}/>
         <Route path="/add-blog" element={<AddBlog />}/>
@@ -46,13 +54,19 @@ function App() {
         <Route path="/add-que" element={<AddQue />}/>
         <Route path="/add-service" element={<AddService />}/>
 
-        <Route path="/Edit-about" element={<EditAbout />}/>
-        <Route path="/Edit-blog" element={<EditBlog />}/>
-        <Route path="/Edit-nof" element={<EditNof />}/>
-        <Route path="/Edit-que" element={<EditQue />}/>
-        <Route path="/Edit-service" element={<EditService />}/>
-        <Route path="/Edit-top" element={<EditTop />}/>
-        <Route path="/Edit-infor" element={<EditInfor />}/>
+        <Route path="/edit-about/:id" element={<EditAbout />}/>
+        <Route path="/edit-blog/:id" element={<EditBlog />}/>
+        <Route path="/edit-nof/:id" element={<EditNof />}/>
+        <Route path="/edit-que/:id" element={<EditQue />}/>
+        <Route path="/edit-service/:id" element={<EditService />}/>
+        <Route path="/edit-top/:id" element={<EditTop />}/>
+        <Route path="/edit-infor/:id" element={<EditInfor />}/>
+        <Route path="/edit-email/:id" element={<EditEmail />}/>
+
+        <Route path="/details-service/:id" element={<ServiceDetails />}/>
+        <Route path="/details-about/:id" element={<AboutDetails />}/>
+        <Route path="/details-nof/:id" element={<NofDetails />}/>
+        <Route path="/details-blog/:id" element={<BlogDetails />}/>
       </Routes>
     </>
   );
