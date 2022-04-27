@@ -203,7 +203,7 @@ function ViewService() {
     )
   } else {
     body = (
-      <div className='loading'>Loading..</div>
+      <div className='loading'>Loading...</div>
     )
   }
 
