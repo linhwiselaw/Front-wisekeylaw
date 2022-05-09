@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '../css/Service.css'
 import parse from 'html-react-parser'
-import {apiUrl} from '../contexts/constants';
+import { apiUrl } from '../contexts/constants';
 
 function ServiceDetails() {
 
@@ -21,7 +21,7 @@ function ServiceDetails() {
     };
 
     const id = window.location.href.split('/')
-    fetch(apiUrl+"/service/" + id[4], requestOptions)
+    fetch(apiUrl + "/service/" + id[4], requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.success) {
@@ -40,7 +40,7 @@ function ServiceDetails() {
       redirect: 'follow'
     };
 
-    fetch(apiUrl+"/infor", requestOptions)
+    fetch(apiUrl + "/infor", requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.success) {
@@ -56,13 +56,13 @@ function ServiceDetails() {
     body = (
       <>
         <div className='Service-Total'>
-        <div className='Home-header'>
-          <img className='Home-logo' src={`https://drive.google.com/uc?export=view&id=${infor[0].Logo}`} alt=''></img>
-          <div className='Home-left'>
-            <a className='Home-header-text' href='/'>Trang Chủ</a>
-            <a className='Home-header-text' href="#contact" data-after="Contact">Liện Hệ</a>
+          <div className='Home-header'>
+            <img className='Home-logo' src={`https://drive.google.com/uc?export=view&id=${infor[0].Logo}`} alt=''></img>
+            <div className='Home-left'>
+              <a className='Home-header-text' href='/'>Trang Chủ</a>
+              <a className='Home-header-text' href="#contact" data-after="Contact">Liện Hệ</a>
+            </div>
           </div>
-        </div>
 
           {/* Header 2 */}
           <div className='Home-header-2'>
@@ -84,27 +84,27 @@ function ServiceDetails() {
 
           {/* Đấy web */}
           <section id='contact'>
-          <div className='Home_bottom-1'>
-          <img className='Home_bottom-1-logo' src={`https://drive.google.com/uc?export=view&id=${infor[0].Logo}`} alt=''></img>
-          <div className='Home_bottom-1-info'>
-            <p className='Home_bottom-1-info-1'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconInfor}`} alt=''></img>Công ty Luật TNHH Power Law - Chi nhánh Sài Gòn</p>
-            <div className='Home_bottom-1-info-2-3'>
-              <p className='Home_bottom-1-info-2'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconPhone}`} alt=''></img>038 5074 104</p>
-              <p className='Home_bottom-1-info-3'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconTime}`} alt=''></img>08 giờ 00 phút - 17 giờ 00 phút</p>
+            <div className='Home_bottom-1'>
+              <img className='Home_bottom-1-logo' src={`https://drive.google.com/uc?export=view&id=${infor[0].Logo}`} alt=''></img>
+              <div className='Home_bottom-1-info'>
+                <p className='Home_bottom-1-info-1'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconInfor}`} alt=''></img>{infor[0].Infor}</p>
+                <div className='Home_bottom-1-info-2-3'>
+                  <p className='Home_bottom-1-info-2'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconPhone}`} alt=''></img>{infor[0].PhoneNumber}</p>
+                  <p className='Home_bottom-1-info-3'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconTime}`} alt=''></img>{infor[0].Time}</p>
+                </div>
+                <p><a href={infor[0].Facebook}>FaceBook: {infor[0].Facebook}</a></p>
+                <p className='Home_bottom-1-info-4'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconEmail}`} alt=''></img>{infor[0].Email}</p>
+                <p className='Home_bottom-1-info-5'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconAddress}`} alt=''></img>{infor[0].Address}</p>
+              </div>
             </div>
-            <p><a href={infor[0].Facebook}>FaceBook: {infor[0].Facebook}</a></p>
-            <p className='Home_bottom-1-info-4'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconEmail}`} alt=''></img>info@powerlaw.com.vn</p>
-            <p className='Home_bottom-1-info-5'><img className='Home_bottom-1-info-img' src={`https://drive.google.com/uc?export=view&id=${infor[0].IconAddress}`} alt=''></img>Số 4, đường số 1, phường 5, quận 8, TP.HCM VPGD: Số 76 (Lầu 6) Cách Mạng Tháng 8, Phường Võ Thị Sáu, Quận 3, TP.HCM</p>
-          </div>
-        </div>
-        <div className='Home_bottom-2'>
-          <p className='Home_bottom-2_text'>© 2022 All Rights Reserved</p>
-        </div>
+            <div className='Home_bottom-2'>
+              <p className='Home_bottom-2_text'>© 2022 All Rights Reserved</p>
+            </div>
           </section>
         </div>
       </>
     )
-  }else{
+  } else {
     body = (
       <div className='loading'>Loading...</div>
     )
